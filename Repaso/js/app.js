@@ -8,7 +8,6 @@
  * 
  */
 
-
 var var_ = 5;
 let let_ = 4;
 const const_ = 3;
@@ -28,3 +27,38 @@ if(var_ == 5){
 console.log('final',var_);
 console.log('final',const_);
 console.log('final',let_);
+
+/**
+ * Scope
+ * 
+ * Es determinar si ina variable esta disponible o no  (let, cosnt, var)
+ */
+
+ let musica = 'Rock';
+ if(musica){
+    let musica = 'Regge';
+    console.log(musica);
+ }
+ console.log(musica);
+
+ /**
+  * Template Strings
+  */
+
+  const nombre = 'vanessa';
+  const trabajo = 'Desarrolladora web';
+  
+  // concatenar 
+  console.log('Nombre: '+nombre+', Trabajo: '+trabajo);
+  console.log(`Nombre: ${nombre}, Trabajo: ${trabajo}`);
+
+  //concatenar con múltiples lineas
+  this.onload = function(){
+      const contenedorApp = document.querySelector('#app');
+      let html = '<ul>'+
+                    '<li> Nombre: '+nombre+'</li>'+
+                    '<li> Trabajo: '+trabajo+'</li>'+
+                '</ul>';
+      contenedorApp.innerHTML = html;
+      console.log(contenedorApp);
+  }
