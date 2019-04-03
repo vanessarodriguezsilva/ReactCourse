@@ -354,4 +354,5 @@
         )
     );
 
+    console.error('AJAX');
     descargarUsuarios(2);
