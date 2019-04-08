@@ -2,9 +2,10 @@
  * Funcion para correr uso de elementos del html
  */
 
-    this.onload = function(){
+    window.onload = function(){
         concatenar_multiples_lineas();
         arreglos();
+        ajaxRandom();
     }
 
 /**
@@ -116,32 +117,32 @@
     let viajandoa = (destino = 'Barcelona', duracion) => `Viajando a la ciudad de: ${destino} por ${duracion}`;
 
 
- let viaje = viajandoa(undefined, '15 dias');
- console.log(viaje);
- console.log(viajando('Paris','3 dias'));
+    let viaje = viajandoa(undefined, '15 dias');
+    console.log(viaje);
+    console.log(viajando('Paris','3 dias'));
 
 /**
  * Objetos
  * Object Literal
  */
 
- let persona = 'Juan';
- let profesion = 'Desarrollador web';
+    let persona = 'Juan';
+    let profesion = 'Desarrollador web';
 
- console.log(persona);
- console.log(profesion);
+    console.log(persona);
+    console.log(profesion);
 
- const persona1 = {
-     nombre:'Juan',
-     profesion: 'Desarrollador web'
- }
+    const persona1 = {
+        nombre:'Juan',
+        profesion: 'Desarrollador web'
+    }
 
- const persona2 = {
-    nombre:'Juan',
-    profesion: 'Diseñador web'
-}
+    const persona2 = {
+        nombre:'Juan',
+        profesion: 'Diseñador web'
+    }
 
- console.log(persona1.nombre, persona2.profesion, persona);
+    console.log(persona1.nombre, persona2.profesion, persona);
 
 // Object Constructor
 
@@ -325,7 +326,7 @@
 //Ajax
     const descargarUsuarios = cantidad => new Promise((resolve,reject) => {
         //pasar la cantidad a la api
-        const api = `https://randomuser.me/api/?inc=gender,name,nat&results=${cantidad}`;
+        const api = `https://randomuser.me/api/?nat=us&results=${cantidad}`;
 
         //llamado ajax
         const xhr = new XMLHttpRequest();
@@ -348,11 +349,57 @@
         //send
         xhr.send();
     }).then(
-        miembros => console.log(miembros),
+        miembros => imprimirHtml(miembros),
         error => console.error(
             new Error('Hubo un error',error)
         )
     );
 
-    console.error('AJAX');
-    descargarUsuarios(2);
+    function imprimirHtml(usuarios){
+        let html = '';
+        usuarios.forEach(usuario =>{
+            html += `
+                <p>
+                    Nombre: ${usuario.name.first} ${usuario.name.last}
+                    <br>País: ${usuario.nat}
+                    <br>Imagen:
+                        <br><img src="${usuario.picture.medium}">
+                </p>
+            `;
+        });
+        const contenedorApp = document.querySelector('#app2');
+        contenedorApp.innerHTML = html;
+    }
+
+    function ajaxRandom(){
+        console.error('AJAX');
+        descargarUsuarios(5);
+    }
+
+/**
+ * POO Classes en el archivo tareas.js
+ * Como incluir un js dentro de otro (esto ayuda a que el sitio sea mas ligero)
+ */
+
+ //Importar variables y funciones
+    import {work1, tareaCompletada, Work} from './tareas.js';
+    import ComprasPendientes, { compra1 } from './compras.js';
+
+ // Tareas
+    console.log(work1.mostrar());
+
+ // Compras
+    const compra2 = new ComprasPendientes('Pizza', 'Media', 5);
+    console.log(compra1);
+    console.log(compra2);
+    console.log(compra2.mostrar());
+    console.log(compra2.nuevoMetodo());
+ 
+ // Tarea Completada Fncion importada
+    tareaCompletada();
+
+ // Uso de la clase Work que se encuentra en el archivo tareas.js
+    const t1 = new Work('Estudiar Ingles', 'Altisima');
+    console.log(t1);
+    console.log(t1.mostrar());
+
